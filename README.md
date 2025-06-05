@@ -6,11 +6,8 @@
 
 - [x] Thêm, sửa, xoá khoản chi tiêu
 - [x] Đặt mục tiêu chi tiêu theo tháng và danh mục
-- [x] Danh mục chi tiêu có thể tùy biến
-- [x] Giao diện trực quan, dễ sử dụng với Bootstrap 5
 - [x] Báo cáo chi tiêu hàng tháng, biểu đồ thống kê
 - [x] Xác thực người dùng, đăng nhập và đăng xuất
-- [x] Responsive trên desktop và mobile
 
 ## 🛠️ Công nghệ sử dụng
 
