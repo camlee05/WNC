@@ -1,6 +1,7 @@
 # 💰 Ứng dụng Quản lý Chi tiêu Cá nhân
 
 Ứng dụng web giúp người dùng theo dõi chi tiêu, đặt mục tiêu tài chính theo danh mục và thời gian, đồng thời hiển thị báo cáo chi tiết theo tháng và năm.
+By Lê Thị Cẩm Ly - 23010411
 
 ## 🚀 Tính năng chính
 
