@@ -4,10 +4,10 @@
 By Lê Thị Cẩm Ly - 23010411
 
 ## 🚀 Tính năng chính
-- [x] Xem danh sách mục tiêu chi tiêu và các khoản chi tiêu trong tháng
-- [x] Thêm, sửa, xoá khoản chi tiêu
-- [x] Đặt mục tiêu chi tiêu theo tháng và danh mục
-- [x] Báo cáo chi tiêu theo tháng và năm
+- **Xem danh sách mục tiêu chi tiêu và các khoản chi tiêu trong tháng**
+- **Thêm, sửa, xoá khoản chi tiêu**
+- **Đặt mục tiêu chi tiêu theo tháng và danh mục**
+- **Báo cáo chi tiêu theo tháng và năm**
 
 ## 🛠️ Công nghệ sử dụng
 
