@@ -650,6 +650,7 @@ class ReportController extends Controller
 ![view](https://github.com/user-attachments/assets/cafc33b1-1a53-4b05-ba09-48c629247805)
 
 ## Route
+Sử dụng Middleware để bảo vệ request
 ```
 <?php
 
@@ -701,3 +702,76 @@ Route::middleware('auth')->group(function () {
 
 require __DIR__.'/auth.php';
 ```
+## Security Setup
+Sử dụng @csrf và xss để chống tấn công
+```
+<form action="{{ isset($editExpense) ? route('page.expenses.update', $editExpense->id) : route('page.expenses.store') }}" method="POST">
+          @csrf
+          @if (isset($editExpense))
+            @method('PUT')
+          @endif
+          <div class="row p-0">
+            <!-- Cột trái -->
+            <div class="col-md-6">
+              <div class="mb-3">
+                <label for="spend_date" class="form-label">Chọn ngày</label>
+                <input type="date" class="form-control" id="spend_date" name="spend_date" 
+                       value="{{ old('spend_date', isset($editExpense) ? $editExpense->spend_date : date('Y-m-d')) }}" required>
+              </div>
+              <div class="mb-3">
+                <label for="amount" class="form-label">Số tiền chi tiêu</label>
+                <div class="input-group" >
+                  <input type="number" class="form-control" id="amount" name="amount" 
+                         placeholder="Nhập số tiền..." value="{{ old('amount', $editExpense->amount ?? '') }}" min="1" required>
+                  <span class="input-group-text bg-white">VNĐ</span>
+                </div>
+              </div>
+              <div class="mb-3">
+                <label for="note" class="form-label">Ghi chú</label>
+                <input type="text" class="form-control" id="note" name="note" placeholder="Nhập ghi chú..." value="{{ old('note', $editExpense->note ?? '') }}">
+              </div>
+               <!-- Nút Thêm khoản chi -->
+          <div class="text-center mt-5">
+            <button type="submit" class="btn btn-success px-5"> 
+               {{ isset($editExpense) ? 'Cập nhật khoản chi' : 'Thêm khoản chi' }}
+              </button>
+          </div>
+        </form>
+```
+Validation để kiểm tra và ràng buộc dữ liệu
+```
+public function destroy($id)
+    {
+        $budget = Budget::where('id', $id)
+                ->where('user_id', auth()->id())
+                ->firstOrFail();
+        $budget->delete();
+        return response()->json(['message' => 'Deleted successfully']);
+    }
+```
+## Hình ảnh các chức năng chính
+### Xác thực
+**Đăng kí**
+![dk](https://github.com/user-attachments/assets/fa262351-16d6-4f0e-896d-677a25fc7dbb)
+**Đăng nhập**
+![dn](https://github.com/user-attachments/assets/96f2ce60-6f82-49ee-9581-dfad545420db)
+**Trang chủ**
+![home](https://github.com/user-attachments/assets/0faf7d4d-0295-40a3-a166-657b5083ab4f)
+![sxct](https://github.com/user-attachments/assets/fb3c36c2-4dab-4bee-83b7-e107e6f327ec)
+![hometarget](https://github.com/user-attachments/assets/1723ff45-036f-4c70-b4de-69ef05fb848d)
+![sxmt](https://github.com/user-attachments/assets/ee6626f7-9760-4075-b81a-179889cc35c1)
+**Quản lý**
+![qlct](https://github.com/user-attachments/assets/87e21885-7108-4e27-a2ae-ac5f73ebf79c)
+![qlmt](https://github.com/user-attachments/assets/2d15970b-b42e-4c85-bba8-6adf760e5b9a)
+**Báo cáo**
+![bct](https://github.com/user-attachments/assets/ec851722-693b-4514-af96-418a430546c2)
+![bcn](https://github.com/user-attachments/assets/81aeaa76-9241-4fe9-985d-70c1455faa39)
+
+
+
+
+
+
+
+
+
