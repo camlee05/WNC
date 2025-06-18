@@ -760,8 +760,8 @@ public function destroy($id)
 ![bct](https://github.com/user-attachments/assets/ec851722-693b-4514-af96-418a430546c2)
 ![bcn](https://github.com/user-attachments/assets/81aeaa76-9241-4fe9-985d-70c1455faa39)
 ## Link
-**Github** https://github.com/camlee05/WNC
-**GitHub Pages** https://camlee05.github.io/WNC/
+###Github: https://github.com/camlee05/WNC
+###GitHub Pages: https://camlee05.github.io/WNC/
 
 
 
