@@ -24,5 +24,33 @@ By Lê Thị Cẩm Ly - 23010411
 ![Sơ đồ chức năng FinancialMn](https://github.com/user-attachments/assets/fefabb4f-e9c0-44ce-a189-ec2040328fbe)
 
 ## Một số Code chính minh hoạ
-
 ### Modal
+```
+<?php
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class Budget extends Model
+{
+    use HasFactory;
+
+    protected $fillable = [
+        'month_year',
+        'category_id',
+        'target_amount',
+        'note',
+        'user_id',
+        
+    ];
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+}
