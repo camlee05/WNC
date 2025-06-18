@@ -763,15 +763,23 @@ public function destroy($id)
 **Đăng nhập**
 ![dn](https://github.com/user-attachments/assets/96f2ce60-6f82-49ee-9581-dfad545420db)
 **Trang chủ**
+Xem danh sách chi tiêu
 ![home](https://github.com/user-attachments/assets/0faf7d4d-0295-40a3-a166-657b5083ab4f)
+Xem chi tiết chi tiêu
 ![sxct](https://github.com/user-attachments/assets/fb3c36c2-4dab-4bee-83b7-e107e6f327ec)
+Xem danh sách mục tiêu chi tiêu
 ![hometarget](https://github.com/user-attachments/assets/1723ff45-036f-4c70-b4de-69ef05fb848d)
+Xem chi tiết mục tiêu chi tiêu
 ![sxmt](https://github.com/user-attachments/assets/ee6626f7-9760-4075-b81a-179889cc35c1)
 **Quản lý**
+Quản lý chi tiêu
 ![qlct](https://github.com/user-attachments/assets/87e21885-7108-4e27-a2ae-ac5f73ebf79c)
+Quản lý mục tiêu chi tiêu
 ![qlmt](https://github.com/user-attachments/assets/2d15970b-b42e-4c85-bba8-6adf760e5b9a)
 **Báo cáo**
+Báo cáo chi tiêu tháng
 ![bct](https://github.com/user-attachments/assets/ec851722-693b-4514-af96-418a430546c2)
+Báo cáo chi tiêu năm
 ![bcn](https://github.com/user-attachments/assets/81aeaa76-9241-4fe9-985d-70c1455faa39)
 
 ## Link
