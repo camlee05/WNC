@@ -42,7 +42,6 @@ class User extends Authenticatable
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable;
-
     /**
      * The attributes that are mass assignable.
      *
@@ -53,7 +52,6 @@ class User extends Authenticatable
         'email',
         'password',
     ];
-
     /**
      * The attributes that should be hidden for serialization.
      *
@@ -91,11 +89,8 @@ class User extends Authenticatable
 **Category**
 ```
 <?php
-
 namespace App\Models;
-
 use Illuminate\Database\Eloquent\Model;
-
 class Category extends Model
 {
     protected $fillable = ['name', 'user_id'];
@@ -122,7 +117,6 @@ class Expense extends Model
     {
         return $this->belongsTo(Category::class);
     }
-
     public function user()
     {
         return $this->belongsTo(User::class);
@@ -147,7 +141,6 @@ class Budget extends Model
         'target_amount',
         'note',
         'user_id',
-        
     ];
 
     public function category()
