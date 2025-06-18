@@ -23,6 +23,10 @@ By Lê Thị Cẩm Ly - 23010411
 ## Sơ đồ chức năng
 ![Sơ đồ chức năng FinancialMn](https://github.com/user-attachments/assets/fefabb4f-e9c0-44ce-a189-ec2040328fbe)
 
+## Sơ đồ thuật toán
+![sdtt](https://github.com/user-attachments/assets/83024868-5031-4f56-9301-c4ba0945a90b)
+
+
 ## Một số Code chính minh hoạ
 ### Modal
 **User**
