@@ -762,6 +762,7 @@ public function destroy($id)
 ![dk](https://github.com/user-attachments/assets/fa262351-16d6-4f0e-896d-677a25fc7dbb)
 **Đăng nhập**
 ![dn](https://github.com/user-attachments/assets/96f2ce60-6f82-49ee-9581-dfad545420db)
+
 **Trang chủ**
 #### Xem danh sách chi tiêu
 ![home](https://github.com/user-attachments/assets/0faf7d4d-0295-40a3-a166-657b5083ab4f)
@@ -782,7 +783,6 @@ Quản lý mục tiêu chi tiêu
 #### Báo cáo chi tiêu năm
 ![bcn](https://github.com/user-attachments/assets/81aeaa76-9241-4fe9-985d-70c1455faa39)
 
-## Link
 ### Github: https://github.com/camlee05/WNC
 ### GitHub Pages: https://camlee05.github.io/WNC/
 
