@@ -17,3 +17,5 @@ By Lê Thị Cẩm Ly - 23010411
 - **Blade Template** 
 - **Tailwind CSS**
 
+## Sơ đồ khối
+![Sơ đồ khối FinancialMn](https://github.com/user-attachments/assets/0b3b9bb6-a648-4db3-bbad-fc829d9cf270)
