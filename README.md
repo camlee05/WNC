@@ -28,31 +28,76 @@ By Lê Thị Cẩm Ly - 23010411
 **User**
 ```
 <?php
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
 
-class Budget extends Model
+class User extends Authenticatable
 {
-    use HasFactory;
+    /** @use HasFactory<\Database\Factories\UserFactory> */
+    use HasFactory, Notifiable;
 
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var list<string>
+     */
     protected $fillable = [
-        'month_year',
-        'category_id',
-        'target_amount',
-        'note',
-        'user_id',
-        
+        'name',
+        'email',
+        'password',
     ];
 
-    public function category()
+    /**
+     * The attributes that should be hidden for serialization.
+     *
+     * @var list<string>
+     */
+    protected $hidden = [
+        'password',
+        'remember_token',
+    ];
+
+    /**
+     * Get the attributes that should be cast.
+     *
+     * @return array<string, string>
+     */
+    protected function casts(): array
     {
-        return $this->belongsTo(Category::class);
+        return [
+            'email_verified_at' => 'datetime',
+            'password' => 'hashed',
+        ];
     }
-    public function user()
+    public function expenses()
     {
-        return $this->belongsTo(User::class);
+    return $this->hasMany(Expense::class);
     }
-}```
+
+    public function budgets()
+    {
+        return $this->hasMany(Budget::class);
+    }
+
+}
+**Category**
+'''<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+
+class Category extends Model
+{
+    protected $fillable = ['name', 'user_id'];
+
+    public function expenses()
+    {
+        return $this->hasMany(Expense::class);
+    }
+}
 
