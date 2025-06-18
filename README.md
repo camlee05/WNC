@@ -157,8 +157,9 @@ class Budget extends Model
     }
 }
 ```
+---
 ### Controller
-**ExpenseController
+**ExpenseController**
 ```
 <?php
 
