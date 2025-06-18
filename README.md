@@ -19,3 +19,6 @@ By Lê Thị Cẩm Ly - 23010411
 
 ## Sơ đồ khối
 ![Sơ đồ khối FinancialMn](https://github.com/user-attachments/assets/0b3b9bb6-a648-4db3-bbad-fc829d9cf270)
+
+## Sơ đồ chức năng
+![Sơ đồ chức năng FinancialMn](https://github.com/user-attachments/assets/fefabb4f-e9c0-44ce-a189-ec2040328fbe)
