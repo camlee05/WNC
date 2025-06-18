@@ -751,7 +751,9 @@ public function destroy($id)
         $budget = Budget::where('id', $id)
                 ->where('user_id', auth()->id())
                 ->firstOrFail();
+
         $budget->delete();
+
         return response()->json(['message' => 'Deleted successfully']);
 
 
