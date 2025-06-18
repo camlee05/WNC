@@ -770,7 +770,7 @@ public function destroy($id)
 ### Github
 https://github.com/camlee05/WNC
 ### GitHub Pages
-
+https://camlee05.github.io/WNC/
 
 
 
