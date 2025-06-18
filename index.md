@@ -724,6 +724,7 @@ Sử dụng @csrf và xss để chống tấn công
                 <input type="date" class="form-control" id="spend_date" name="spend_date" 
                        value="{{ old('spend_date', isset($editExpense) ? $editExpense->spend_date : date('Y-m-d')) }}" required>
               </div>
+
               <div class="mb-3">
                 <label for="amount" class="form-label">Số tiền chi tiêu</label>
                 <div class="input-group" >
@@ -732,11 +733,13 @@ Sử dụng @csrf và xss để chống tấn công
                   <span class="input-group-text bg-white">VNĐ</span>
                 </div>
               </div>
+
               <div class="mb-3">
                 <label for="note" class="form-label">Ghi chú</label>
                 <input type="text" class="form-control" id="note" name="note" placeholder="Nhập ghi chú..." value="{{ old('note', $editExpense->note ?? '') }}">
               </div>
                <!-- Nút Thêm khoản chi -->
+
           <div class="text-center mt-5">
             <button type="submit" class="btn btn-success px-5"> 
                {{ isset($editExpense) ? 'Cập nhật khoản chi' : 'Thêm khoản chi' }}
