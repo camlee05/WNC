@@ -751,8 +751,12 @@ public function destroy($id)
         $budget = Budget::where('id', $id)
                 ->where('user_id', auth()->id())
                 ->firstOrFail();
+
         $budget->delete();
+
         return response()->json(['message' => 'Deleted successfully']);
+
+
     }
 ```
 
@@ -762,9 +766,9 @@ public function destroy($id)
 ![dk](https://github.com/user-attachments/assets/fa262351-16d6-4f0e-896d-677a25fc7dbb)
 **Đăng nhập**
 ![dn](https://github.com/user-attachments/assets/96f2ce60-6f82-49ee-9581-dfad545420db)
-####
+
 **Trang chủ**
-####
+
 #### Xem danh sách chi tiêu
 ![home](https://github.com/user-attachments/assets/0faf7d4d-0295-40a3-a166-657b5083ab4f)
 #### Xem chi tiết chi tiêu
