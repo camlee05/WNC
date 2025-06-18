@@ -25,6 +25,7 @@ By Lê Thị Cẩm Ly - 23010411
 
 ## Một số Code chính minh hoạ
 ### Modal
+**User**
 ```
 <?php
 namespace App\Models;
@@ -53,4 +54,5 @@ class Budget extends Model
     {
         return $this->belongsTo(User::class);
     }
-}
+}```
+
