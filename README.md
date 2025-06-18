@@ -84,6 +84,7 @@ class User extends Authenticatable
     }
 
 }
+```
 **Category**
 '''<?php
 
