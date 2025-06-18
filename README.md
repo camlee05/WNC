@@ -646,6 +646,7 @@ class ReportController extends Controller
 
 }
 ```
+
 ## Blade Template (View)
 ![view](https://github.com/user-attachments/assets/cafc33b1-1a53-4b05-ba09-48c629247805)
 
@@ -702,6 +703,7 @@ Route::middleware('auth')->group(function () {
 
 require __DIR__.'/auth.php';
 ```
+
 ## Security Setup
 Sử dụng @csrf và xss để chống tấn công
 ```
@@ -749,6 +751,7 @@ public function destroy($id)
         return response()->json(['message' => 'Deleted successfully']);
     }
 ```
+
 ## Hình ảnh các chức năng chính
 ### Xác thực
 **Đăng kí**
@@ -766,7 +769,8 @@ public function destroy($id)
 **Báo cáo**
 ![bct](https://github.com/user-attachments/assets/ec851722-693b-4514-af96-418a430546c2)
 ![bcn](https://github.com/user-attachments/assets/81aeaa76-9241-4fe9-985d-70c1455faa39)
-##Link
+
+## Link
 ### Github
 https://github.com/camlee05/WNC
 ### GitHub Pages
