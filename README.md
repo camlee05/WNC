@@ -86,7 +86,7 @@ class User extends Authenticatable
 }
 ```
 **Category**
-'''
+```
 <?php
 
 namespace App\Models;
@@ -100,6 +100,60 @@ class Category extends Model
     public function expenses()
     {
         return $this->hasMany(Expense::class);
+    }
+}
+```
+**Expense**
+```
+<?php
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+
+class Expense extends Model
+{
+    protected $table = 'expenses';
+    protected $fillable = ['category_id', 'spend_date', 'amount', 'note', 'user_id'];
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+}
+```
+**Budget**
+```
+<?php
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class Budget extends Model
+{
+    use HasFactory;
+
+    protected $fillable = [
+        'month_year',
+        'category_id',
+        'target_amount',
+        'note',
+        'user_id',
+        
+    ];
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 }
 ```
