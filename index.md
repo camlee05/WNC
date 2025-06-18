@@ -604,13 +604,10 @@ class ReportController extends Controller
     {
         $year = $request->input('year', Carbon::now()->year);
         $userId = Auth::id();
-
         //Tổng mục tiêu cả năm
         $yearlyTarget = Budget::where('user_id', $userId)
             ->where('month_year', 'like', "$year%")
             ->sum('target_amount');
-
-
         //Tổng chi tiêu cả năm
         $yearlyExpenses = Expense::where('user_id', $userId)
             ->whereYear('spend_date', $year)
@@ -639,10 +636,8 @@ class ReportController extends Controller
             'year'
         ));
     }
-
 }
 ```
-
 ## Blade Template (View)
 ![view](https://github.com/user-attachments/assets/cafc33b1-1a53-4b05-ba09-48c629247805)
 
