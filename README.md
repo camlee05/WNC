@@ -86,7 +86,8 @@ class User extends Authenticatable
 }
 ```
 **Category**
-'''<?php
+'''
+<?php
 
 namespace App\Models;
 
@@ -101,4 +102,4 @@ class Category extends Model
         return $this->hasMany(Expense::class);
     }
 }
-
+```
