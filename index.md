@@ -8,7 +8,7 @@ By Lê Thị Cẩm Ly - 23010411
 - **Thêm, sửa, xoá khoản chi tiêu**
 - **Đặt mục tiêu chi tiêu theo tháng và danh mục**
 - **Báo cáo chi tiêu theo tháng và năm**
-
+---
 ## 🛠️ Công nghệ sử dụng
 
 - **PHP (Laravel Framework)**
@@ -16,18 +16,17 @@ By Lê Thị Cẩm Ly - 23010411
 - **MySQL (Aiven Cloud)**
 - **Blade Template** 
 - **Tailwind CSS**
-
-## Sơ đồ khối
+---
+## 🧩 Sơ đồ khối
 ![Sơ đồ khối FinancialMn](https://github.com/user-attachments/assets/0b3b9bb6-a648-4db3-bbad-fc829d9cf270)
-
-## Sơ đồ chức năng
+---
+## 📑 Sơ đồ chức năng
 ![Sơ đồ chức năng FinancialMn](https://github.com/user-attachments/assets/fefabb4f-e9c0-44ce-a189-ec2040328fbe)
-
-## Sơ đồ thuật toán
+---
+## 🔀 Sơ đồ thuật toán
 ![sdtt](https://github.com/user-attachments/assets/83024868-5031-4f56-9301-c4ba0945a90b)
-
-
-## Một số Code chính minh hoạ
+---
+## 💻 Một số Code chính minh hoạ
 ### Modal
 **User**
 ```
@@ -161,7 +160,7 @@ class Budget extends Model
     }
 }
 ```
----
+
 ### Controller
 **FinancialController**
 ```
@@ -650,10 +649,10 @@ class ReportController extends Controller
 
 }
 ```
-
+---
 ## Blade Template (View)
 ![view](https://github.com/user-attachments/assets/cafc33b1-1a53-4b05-ba09-48c629247805)
-
+---
 ## Route
 Sử dụng Middleware để bảo vệ request
 ```
@@ -707,7 +706,7 @@ Route::middleware('auth')->group(function () {
 
 require __DIR__.'/auth.php';
 ```
-
+---
 ## Security Setup
 Sử dụng @csrf và xss để chống tấn công
 ```
@@ -724,7 +723,6 @@ Sử dụng @csrf và xss để chống tấn công
                 <input type="date" class="form-control" id="spend_date" name="spend_date" 
                        value="{{ old('spend_date', isset($editExpense) ? $editExpense->spend_date : date('Y-m-d')) }}" required>
               </div>
-
               <div class="mb-3">
                 <label for="amount" class="form-label">Số tiền chi tiêu</label>
                 <div class="input-group" >
@@ -733,13 +731,11 @@ Sử dụng @csrf và xss để chống tấn công
                   <span class="input-group-text bg-white">VNĐ</span>
                 </div>
               </div>
-
               <div class="mb-3">
                 <label for="note" class="form-label">Ghi chú</label>
                 <input type="text" class="form-control" id="note" name="note" placeholder="Nhập ghi chú..." value="{{ old('note', $editExpense->note ?? '') }}">
               </div>
                <!-- Nút Thêm khoản chi -->
-
           <div class="text-center mt-5">
             <button type="submit" class="btn btn-success px-5"> 
                {{ isset($editExpense) ? 'Cập nhật khoản chi' : 'Thêm khoản chi' }}
@@ -762,37 +758,38 @@ public function destroy($id)
 
     }
 ```
-
-## Hình ảnh các chức năng chính
-### Xác thực
-**Đăng kí**
+---
+## 📅 Hình ảnh các chức năng chính
+### 🔑 Xác thực
+- 📝 Đăng kí
 ![dk](https://github.com/user-attachments/assets/fa262351-16d6-4f0e-896d-677a25fc7dbb)
-**Đăng nhập**
+- 📝 Đăng nhập
 ![dn](https://github.com/user-attachments/assets/96f2ce60-6f82-49ee-9581-dfad545420db)
-
-**Trang chủ**
-
-#### Xem danh sách chi tiêu
+---
+### 🏠 Trang chủ
+- 📃 Xem danh sách chi tiêu
 ![home](https://github.com/user-attachments/assets/0faf7d4d-0295-40a3-a166-657b5083ab4f)
-#### Xem chi tiết chi tiêu
+- 🔍 Xem chi tiết chi tiêu
 ![sxct](https://github.com/user-attachments/assets/fb3c36c2-4dab-4bee-83b7-e107e6f327ec)
-#### Xem danh sách mục tiêu chi tiêu
+- 📑 Xem danh sách mục tiêu chi tiêu
 ![hometarget](https://github.com/user-attachments/assets/1723ff45-036f-4c70-b4de-69ef05fb848d)
-#### Xem chi tiết mục tiêu chi tiêu
+- 🔍 Xem chi tiết mục tiêu chi tiêu
 ![sxmt](https://github.com/user-attachments/assets/ee6626f7-9760-4075-b81a-179889cc35c1)
-**Quản lý**
-#### Quản lý chi tiêu
+---
+### 🗂️ Quản lý
+- 💵 Quản lý chi tiêu
 ![qlct](https://github.com/user-attachments/assets/87e21885-7108-4e27-a2ae-ac5f73ebf79c)
-Quản lý mục tiêu chi tiêu
+- 🎯 Quản lý mục tiêu chi tiêu
 ![qlmt](https://github.com/user-attachments/assets/2d15970b-b42e-4c85-bba8-6adf760e5b9a)
-**Báo cáo**
-#### Báo cáo chi tiêu tháng
+---
+### 📊 Báo cáo
+- 🗓️ Báo cáo chi tiêu tháng
 ![bct](https://github.com/user-attachments/assets/ec851722-693b-4514-af96-418a430546c2)
-#### Báo cáo chi tiêu năm
+- 📅 Báo cáo chi tiêu năm
 ![bcn](https://github.com/user-attachments/assets/81aeaa76-9241-4fe9-985d-70c1455faa39)
-
-### Github: https://github.com/camlee05/WNC
-### GitHub Pages: https://camlee05.github.io/WNC/
+---
+### 📌 Github: https://github.com/camlee05/WNC
+### 🌐 GitHub Pages: https://camlee05.github.io/WNC/
 
 
 
