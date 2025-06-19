@@ -6,6 +6,9 @@
   <title>Quản lý chi tiêu</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
   <style>
+    body{
+      background-color: #F7F8FA;
+    }
     nav.col-1 {
       color: black !important;
       border-right: 1px solid grey;
@@ -14,26 +17,20 @@
       color: black !important;
     }
     nav.col-1 a:hover {
-      background-color: rgb(178, 192, 214);
+      background-color: rgba(69, 165, 157, 0.9);
       border-radius: 10px;
     }
-    .info-box {
-      background-color: #f8f9fa;
-      padding: 1rem;
-      border-radius: 10px;
-      border: 1px solid #dee2e6;
-      text-align: center;
-    }
+
     .info-box h5 {
       margin-bottom: 0.5rem;
     }
     .month-btn.active {
-  background-color: #0d6efd;
+  background-color: rgba(69, 165, 157, 0.9);
   color: #fff;
 }
   .dropdown-menu {
     border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    box-shadow: 0 2px 8px rgba(69, 165, 157, 0.9);
     font-size: 14px;
     padding: 1rem; /* thêm padding nếu chưa có */
   min-width: 260px; /* đảm bảo chiều rộng dropdown đủ đẹp */
@@ -46,149 +43,211 @@
     font-size: 13px;
   }
   #monthGrid .btn.active {
-    background-color: #0d6efd;
+    background-color: rgba(69, 165, 157, 0.9);
     color: white;
   }
   #monthGrid .btn.today {
     border: 1px dashed #0d6efd;
   }
+  #monthGrid .btn:hover {
+  background-color: rgba(69, 165, 157, 0.2);
+  }
+
   nav.col-1 a:hover {
   background-color: #cfe2ff;
   transform: translateX(5px);
   transition: 0.3s ease;
-}
+  }
 
+  /* Màu nền mới cho box thống kê */
+  .info-box {
+    background-color:rgb(255, 255, 255); /* Xanh nhạt nhẹ */
+    padding: 1rem;
+    border-radius: 10px;
+    border: 1px solid rgba(69, 165, 157, 0.9); /* Viền xanh */
+    text-align: center;
+    transition: 0.3s;
+  }
+
+  /* Màu nền mới cho card bên phải */
+  .card {
+    background-color:rgb(255, 255, 255); /* Xanh lá nhạt */
+    border: 1px solid rgba(69, 165, 157, 0.9);
+    border-radius: 12px;
+    transition: 0.3s;
+  }
+  h4.fw-bold {
+    font-size: 1.5rem;
+    font-weight:400;
+  }
+
+  
   </style>
 </head>
 <body>
   <div class="container-fluid">
     <div class="row">
       <!-- Sidebar -->
-      <nav class="col-1 vh-100 p-3" style="position: sticky; top:0;">
+      <nav class="col-1 vh-100 p-3" style="position: sticky; top:0;background-color: rgb(80, 192, 183);">
         <h4><img src="{{ asset('img/budget.png') }}" alt="Icon Budget" style="width: 75px;"></h4>
         <ul class="nav flex-column">
           <li class="nav-item"><a class="nav-link btn " href="{{ route('page.layouts.app') }}">
             <img src="{{ asset('img/home.png') }}" alt="" style="width: 25px;">Trang chủ</a></li>
           <li class="nav-item"><a class="nav-link btn" href="{{ route('page.expenses.create') }}">
             <img src="{{ asset('img/spending.png') }}" alt="" style="width: 25px;">Quản lý</a></li>
-          <li class="nav-item"><a class="nav-link btn btn-primary" href="#" style="background-color: #0d6efd">
+          <li class="nav-item"><a class="nav-link btn btn-primary" href="#" style="background-color: rgba(69, 165, 157, 0.9)">
             <img src="{{ asset('img/report.png') }}" alt="" style="width: 25px;">Báo cáo</a></li>
         </ul>
-                <!-- Dropdown cố định dưới cùng sidebar -->
-<div class="position-absolute bottom-0 start-0 end-0 mb-3 px-2">
-  <div class="dropdown w-100 text-center">
-    <a href="#" class="d-flex flex-column align-items-center text-dark text-decoration-none" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-      <img src="{{ asset('img/profile.png') }}" alt="Profile" class="rounded-circle mb-1" style="width: 40px; height: 40px;">
-      <span>{{ Auth::user()->name }}</span>
-    </a>
-    <ul class="dropdown-menu text-small shadow w-100" aria-labelledby="userDropdown">
-      <li>
-        <a class="dropdown-item" href="{{ route('profile.edit') }}">Profile</a>
-      </li>
-      <li>
-        <form method="POST" action="{{ route('logout') }}">
-          @csrf
-          <button type="submit" class="dropdown-item">Log Out</button>
-        </form>
-      </li>
-    </ul>
-  </div>
-</div>
+        <!-- Dropdown cố định dưới cùng sidebar -->
+        <div class="position-absolute bottom-0 start-0 end-0 mb-3 px-2">
+          <div class="dropdown w-100 text-center">
+            <a href="#" class="d-flex flex-column align-items-center text-dark text-decoration-none" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+              <img src="{{ asset('img/profile.png') }}" alt="Profile" class="rounded-circle mb-1" style="width: 40px; height: 40px;">
+              <span>{{ Auth::user()->name }}</span>
+            </a>
+            <ul class="dropdown-menu text-small shadow w-100" aria-labelledby="userDropdown">
+              <li>
+                <a class="dropdown-item" href="{{ route('profile.edit') }}">Profile</a>
+              </li>
+              <li>
+                <form method="POST" action="{{ route('logout') }}">
+                  @csrf
+                  <button type="submit" class="dropdown-item">Log Out</button>
+                </form>
+              </li>
+            </ul>
+          </div>
+        </div>
       </nav>
 
       <!-- Main Content -->
-      <main class="col-11 p-0">
-        <h1 style="border-bottom: 1px solid grey; margin-bottom: 0px;">
-          <div class="ms-4">Báo cáo chi tiêu</div>
-        </h1>
-
-        <!-- Menu chọn kiểu xem -->
-        <div class="btn-group m-2" role="group" aria-label="Menu Thêm chi tiêu">
-          <button type="button" class="btn btn-primary">Tháng</button>
-          <button type="button" class="btn btn-outline-primary">Năm</button>
+      <main class="col-11 p-4">
+        <div class="d-flex justify-content-between align-items-center">
+          <h1>Báo cáo chi tiêu</h1>
+          @if ($warning)
+            <div class="alert alert-danger" role="alert">
+              ⚠️ {{ $warning }}
+            </div>
+          @endif
         </div>
-        <div style="border-top: 1px solid grey;"></div>
 
-        <!-- Bộ lọc tháng/năm -->
-        <!-- Bộ lọc tháng/năm kiểu dropdown -->
-<div class="dropdown m-3">
-    <button id="monthPickerBtn"
-            class="btn btn-outline-secondary dropdown-toggle"
-            data-bs-toggle="dropdown"
-            data-bs-auto-close="outside"
-            aria-expanded="false"></button>
+        <div>
+          <div class="d-flex justify-content-between align-items-center mb-4">
+            <!-- Menu chọn kiểu xem -->
+            <div class="btn-group" role="group" aria-label="Menu">
+              <button type="button" class="btn btn-success">Tháng</button>
+              <a href="{{ route('page.reports.yearly') }}" class="btn btn-outline-success text-decoration-none" style="background-color:rgb(255, 255, 255)">Năm</a>
+            </div>
+              <!-- Bộ lọc tháng/năm kiểu dropdown -->
+            <div class="dropdown m-3" style="background-color:rgb(255, 255, 255)">
+              <button id="monthPickerBtn"
+                      class="btn btn-outline-secondary dropdown-toggle"
+                      data-bs-toggle="dropdown"
+                      data-bs-auto-close="outside"
+                      aria-expanded="false"></button>
 
-    <div class="dropdown-menu" style="min-width: 260px;">
-      <!-- Header: chọn năm -->
-      <div class="d-flex justify-content-between align-items-center mb-2">
-        <button id="prevYear" class="btn btn-sm btn-link px-1">&laquo;</button>
-        <span id="yearLabel" class="fw-bold"></span>
-        <button id="nextYear" class="btn btn-sm btn-link px-1">&raquo;</button>
-      </div>
+              <div class="dropdown-menu" style="min-width: 260px;">
+                <!-- Header: chọn năm -->
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                  <button id="prevYear" class="btn btn-sm btn-link px-1">&laquo;</button>
+                  <span id="yearLabel" class="fw-bold"></span>
+                  <button id="nextYear" class="btn btn-sm btn-link px-1">&raquo;</button>
+                </div>
 
-      <!-- Lưới tháng -->
-      <div class="row g-2 mb-3" id="monthGrid"></div>
+                <!-- Lưới tháng -->
+                <div class="row g-2 mb-3" id="monthGrid"></div>
 
-      <!-- Nút xác nhận / huỷ -->
-      <div class="d-flex justify-content-end gap-2">
-        <button id="cancelBtn" class="btn btn-outline-secondary btn-sm">Huỷ</button>
-        <button id="confirmBtn" class="btn btn-primary btn-sm">Xác nhận</button>
-      </div>
-    </div>
-</div>
+                <!-- Nút xác nhận / huỷ -->
+                <div class="d-flex justify-content-end gap-2">
+                  <button id="cancelBtn" class="btn btn-outline-secondary btn-sm">Huỷ</button>
+                  <button id="confirmBtn" class="btn btn-primary btn-sm">Xác nhận</button>
+                </div>
+              </div>
+          </div>
+        </div>
 
 
         <!-- Nội dung chính chia 2 bên -->
-        <div class="row m-3">
+        <div class="row g-4">
           <!-- Bên trái -->
-          <div class="col-md-6">
+          <div class="col-md-4">
             <div class="info-box mb-3">
               <h5>Tổng mục tiêu chi tiêu</h5>
-              <p id="tongMucTieu">{{ number_format($monthlyTarget, 0, ',', '.') }} đ</p>
-            </div>
-            <div class="info-box mb-3">
-              <h5>Tổng chi tiêu</h5>
-              <p id="tongChiTieu">{{ number_format($monthlyTotal, 0, ',', '.') }} đ</p>
+              <h4 id="tongMucTieu">{{ number_format($monthlyTarget, 0, ',', '.') }} đ</h4>
             </div>
             <div class="info-box">
               <h5>Số tiền còn lại</h5>
-              <p id="tienConLai">{{ number_format($balance, 0, ',', '.') }} đ</p>
+              <h4 id="tienConLai">{{ number_format($balance, 0, ',', '.') }} đ</h4>
+            </div>
+          </div>
+
+          <!-- Giữa -->
+          <div class="col-md-4">
+            <div class="info-box mb-3">
+              <h5>Tổng chi tiêu</h5>
+              <h4 id="tongChiTieu">{{ number_format($monthlyTotal, 0, ',', '.') }} đ</h4>
+            </div>
+            <!-- Tỷ lệ hoàn thành mục tiêu -->
+            <div class="info-box mb-3">
+              <h5>Tỷ lệ hoàn thành mục tiêu </h5>
+              <h4>{{ number_format($completionRate, 2) }}%</h4>
             </div>
           </div>
 
           <!-- Bên phải -->
-          <div class="col-md-6">
-            <div class="info-box mb-2">
-              <h5>Ăn uống</h5>
-              <p>2,000,000 VNĐ</p>
-            </div>
-            <div class="info-box mb-2">
-              <h5>Giao thông</h5>
-              <p>1,000,000 VNĐ</p>
-            </div>
-            <div class="info-box mb-2">
-              <h5>Giải trí</h5>
-              <p>1,500,000 VNĐ</p>
-            </div>
-            <div class="info-box mb-2">
-              <h5>Nhà ở</h5>
-              <p>3,000,000 VNĐ</p>
+                     <div class="col-md-4">
+            <div class="info-box mb-3 ">
+              <h5>So với tháng trước</h5>
+              @if ($comparePercentage !== null)
+                <h4 class="text-primary">
+                  {{ $comparePercentage >= 0 ? 'tăng' : 'giảm' }}
+                  {{ number_format($comparePercentage, 2) }}% 
+                </h4>
+              @else
+                <p>Không có dữ liệu tháng trước</p>
+              @endif
             </div>
           </div>
+
         </div>
 
-        <!-- Biểu đồ -->
-        <div class="m-3">
-          <h5 class="text-center mb-3">Biểu đồ chi tiêu theo danh mục</h5>
-          <div class="text-center">
-            <canvas id="pieChart" width="400" height="400"></canvas>
+      
+
+        <div class="row g-4">
+          <div class="col-md-6">
+            <div class="card p-3 shadow-sm mb-3">
+              <h5 class="mb-3">Chi tiêu theo danh mục</h5>
+              <table class="table">
+                @foreach($expensesByCategory as $categoryName => $amount)
+                  <tr>
+                    <td>{{ $categoryName }}</td>
+                    <td>{{ number_format($amount, 0, ',', '.') }} VNĐ</td>
+                  </tr>
+                @endforeach
+              </table>
           </div>
+          </div>
+          <div class="col-md-6">
+            <div class="card p-3 shadow-sm">
+              <h5>Top 3 danh mục tiêu nhiều nhất</h5>
+              <table class="table mb-0">
+                @foreach($topCategories as $name => $amount)
+                  <tr>
+                    <td>{{ $name }}</td>
+                    <td>{{ number_format($amount, 0, ',', '.') }} đ</td>
+                  </tr>
+                @endforeach
+              </table>
+            </div>
+          </div>
+
         </div>
+
+
       </main>
     </div>
   </div>
 
-  <!-- Thư viện JS -->
 <!-- Bootstrap JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 

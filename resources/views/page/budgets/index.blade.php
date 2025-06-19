@@ -6,6 +6,10 @@
   <title>Quản lý chi tiêu</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
   <style>
+    body{
+      background-color: #F7F8FA;
+      overflow-y: hidden;
+    }
     nav.col-1 {
       color: black !important;
       border-right: 1px solid grey;
@@ -26,14 +30,22 @@
       -moz-appearance: textfield;
     }
     .btn-active-custom {
-      background-color: #0d6efd !important;
+      background-color: rgba(69, 165, 157, 0.9) !important;
       color: white !important;
-      border-color: #0d6efd !important;
+      border-color: rgba(69, 165, 157, 0.9) !important;
     }
     nav.col-1 a:hover {
   background-color: #cfe2ff;
   transform: translateX(5px);
   transition: 0.3s ease;
+}
+.category-button{
+  background-color: white;
+}
+.category-button:hover {
+    background-color: rgba(69, 165, 157, 0.9) !important; /* màu cam */
+    border-color: rgba(69, 165, 157, 0.9) !important;
+    color: white !important;
 }
 
   </style>
@@ -41,12 +53,12 @@
 <body>
   <div class="container-fluid">
     <div class="row">
-            <nav class="col-1 vh-100 p-3" style="position: sticky; top:0;">
+            <nav class="col-1 vh-100 p-3" style="position: sticky; top:0;background-color: rgb(80, 192, 183);">
         <h4><img src="{{ asset('img/budget.png') }}" alt="Icon Budget" style="width: 75px;"></h4>
         <ul class="nav flex-column">
           <li class="nav-item"><a class="nav-link btn " href="{{ route('page.layouts.app') }}">
             <img src="{{ asset('img/home.png') }}" alt="" style="width: 25px;">Trang chủ</a></li>
-          <li class="nav-item"><a class="nav-link btn btn-primary" href="" style="background-color: #0d6efd">
+          <li class="nav-item"><a class="nav-link btn btn-primary" href="" style="background-color: rgba(69, 165, 157, 0.9)">
             <img src="{{ asset('img/spending.png') }}" alt="" style="width: 25px;">Quản lý</a></li>
           <li class="nav-item"><a class="nav-link btn" href="{{ route('page.reports.monthly') }}">
             <img src="{{ asset('img/report.png') }}" alt="" style="width: 25px;">Báo cáo</a></li>
@@ -74,16 +86,17 @@
       </nav>
 
       <main class="col-11 p-4">
-        <div class="d-flex justify-content-between align-items-center">
-          <h1>Đặt mục tiêu chi tiêu</h1>
+        <div class="d-flex justify-content-between align-items-center" style="padding:0 0px 10px 0;">
+          <h1>Mục tiêu chi tiêu</h1>
           <div class="btn-group" role="group" aria-label="Menu Thêm chi tiêu">
-          <a href="{{ route('page.expenses.create') }}" class="btn btn-outline-primary text-decoration-none">Chi tiêu</a>
-         <button type="button" class="btn btn-primary">Đặt mục tiêu</button>
+          <a href="{{ route('page.expenses.create') }}" class="btn btn-outline-success text-decoration-none" style="background-color:rgb(255, 255, 255)">
+            Chi tiêu
+          </a>
+         <button type="button" class="btn btn-success">Đặt mục tiêu</button>
         </div>
       </div>
-      <hr>
 
-        <div class="m-4">
+    
           @if ($errors->any())
           <div class="alert alert-danger">
             <ul class="mb-0">
@@ -99,30 +112,38 @@
             {{ session('success') }}
           </div>
           @endif
-        </div>
+        
 
-        <form action="{{ route('page.budgets.store') }}" method="POST">
-          @csrf
-          <div class="row p-4">
+        <form action="{{ isset($budget) ? route('page.budgets.update', $budget->id) : route('page.budgets.store') }}" method="POST">
+            @csrf
+            @if (isset($budget))
+                @method('PUT')
+            @endif
+          <div class="row p-0">
             <div class="col-md-6">
               <div class="mb-3">
                 <label for="thangNam" class="form-label">Chọn tháng/năm</label>
                 <input type="month" class="form-control" id="thangNam" name="month_year"
-                  value="{{ old('month_year', date('Y-m')) }}" required />
+                  value="{{ old('month_year', isset($budget) ? $budget->month_year : now()->format('Y-m'))}}"  required />
               </div>
               <div class="mb-3">
                 <label for="sotien" class="form-label">Số tiền mục tiêu</label>
                 <div class="input-group">
                   <input type="number" class="form-control" id="sotien" name="target_amount"
-                    placeholder="Nhập số tiền..." value="{{ old('target_amount') }}" min="1" required />
-                  <span class="input-group-text">VNĐ</span>
+                    placeholder="Nhập số tiền..." value="{{ old('target_amount', $budget->target_amount ?? '') }}" min="1" required />
+                  <span class="input-group-text bg-white">VNĐ</span>
                 </div>
               </div>
               <div class="mb-3">
                 <label for="ghichu" class="form-label">Ghi chú</label>
                 <input type="text" class="form-control" id="ghichu" name="note" placeholder="Nhập ghi chú..."
-                  value="{{ old('note') }}" />
+                  value="{{ old('note', $budget->note ?? '') }}"  />
               </div>
+              <div class="text-center mt-5">
+              <button type="submit" class="btn btn-success px-5">
+                  {{ isset($budget) ? 'Cập nhật mục tiêu' : 'Thêm mục tiêu' }}
+              </button>
+            </div>
             </div>
 
             <div class="col-md-6">
@@ -130,17 +151,19 @@
               <div class="row g-2">
                 @foreach ($categories as $category)
                 <div class="col-4">
-                  <button type="button" class="btn btn-outline-primary w-100 category-button"
-                    data-id="{{ $category->id }}">{{ $category->name }}</button>
+                  <button type="button" class="btn btn-outline-success w-100 category-button 
+                  {{ (optional($budget)->category_id == $category->id) ? 'active' : '' }}"
+                  data-id="{{  $category->id }}">
+                    {!! $category->icon !!}
+                    <div>{{ $category->name }}</div>
+                  </button>
                 </div>
                 @endforeach
               </div>
-              <input type="hidden" name="category_id" id="category_id" value="{{ old('category_id') }}" required />
+              <input type="hidden" name="category_id" id="category_id" value="{{ old('category_id', optional($budget)->category_id) }}" required />
             </div>
 
-            <div class="col-12 text-center mt-4">
-              <button type="submit" class="btn btn-success px-5">Thêm mục tiêu</button>
-            </div>
+            
           </div>
         </form>
       </main>
@@ -170,6 +193,14 @@
           }
         });
       }
+          const alerts = document.querySelectorAll('.alert');
+    alerts.forEach(alert => {
+      setTimeout(() => {
+        alert.classList.add('fade');
+        alert.style.opacity = '0';
+        setTimeout(() => alert.remove(), 500); // Xóa khỏi DOM sau khi mờ dần
+      }, 3000); // Hiện trong 3 giây
+    });
     });
   </script>
 </body>

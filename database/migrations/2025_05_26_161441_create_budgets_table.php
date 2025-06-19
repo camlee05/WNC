@@ -10,17 +10,15 @@ class CreateBudgetsTable extends Migration
     {
         Schema::create('budgets', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->constrained()->onDelete('cascade'); // ✅ Thêm dòng này
+            $table->foreignId('category_id')->constrained()->onDelete('cascade'); // cũng dùng foreignId
             $table->string('month_year'); // lưu tháng/năm dạng 'YYYY-MM'
-            $table->unsignedBigInteger('category_id'); // liên kết với bảng categories
             $table->integer('target_amount'); // số tiền mục tiêu
             $table->string('note')->nullable(); // ghi chú
             $table->timestamps();
 
-            // Khóa ngoại
-            $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
-
-            // Giới hạn mỗi tháng/năm + category chỉ có 1 mục tiêu
-            $table->unique(['month_year', 'category_id']);
+            // Giới hạn mỗi user + month_year + category chỉ có 1 mục tiêu
+            $table->unique(['user_id', 'month_year', 'category_id']); // ✅ thêm user_id vô unique luôn
         });
     }
 

@@ -28,131 +28,144 @@
       margin-bottom: 0.5rem;
     }
     nav.col-1 a:hover {
-  background-color: #cfe2ff;
-  transform: translateX(5px);
-  transition: 0.3s ease;
-}
+    background-color: #cfe2ff;
+    transform: translateX(5px);
+    transition: 0.3s ease;
+    }
+  /* Màu nền mới cho box thống kê */
+  .info-box {
+    background-color:rgb(255, 255, 255); /* Xanh nhạt nhẹ */
+    padding: 1rem;
+    border-radius: 10px;
+    border: 1px solid rgba(69, 165, 157, 0.9); /* Viền xanh */
+    text-align: center;
+    transition: 0.3s;
+  }
 
+  /* Màu nền mới cho card bên phải */
+  .card {
+    background-color:rgb(255, 255, 255); /* Xanh lá nhạt */
+    border: 1px solid rgba(69, 165, 157, 0.9);
+    border-radius: 12px;
+    transition: 0.3s;
+  }
+  h4.fw-bold {
+    font-size: 1.5rem;
+    font-weight:400;
+  }
   </style>
 </head>
 <body>
   <div class="container-fluid">
     <div class="row">
       <!-- Sidebar -->
-      <nav class="col-1 vh-100 p-3" style="position: sticky; top:0;">
-        <h4>Sidebar</h4>
+      <nav class="col-1 vh-100 p-3" style="position: sticky; top:0;background-color: rgb(80, 192, 183);">
+        <h4><img src="{{ asset('img/budget.png') }}" alt="Icon Budget" style="width: 75px;"></h4>
         <ul class="nav flex-column">
-          <li class="nav-item"><a class="nav-link btn" href="#">Trang chủ</a></li>
-          <li class="nav-item"><a class="nav-link btn" href="#">Quản lý</a></li>
-          <li class="nav-item"><a class="nav-link btn" href="#">Biểu đồ</a></li>
-          <li class="nav-item"><a class="nav-link btn btn-primary" href="#" style="background-color: #0d6efd">Báo cáo</a></li>
+          <li class="nav-item"><a class="nav-link btn " href="{{ route('page.layouts.app') }}">
+            <img src="{{ asset('img/home.png') }}" alt="" style="width: 25px;">Trang chủ</a></li>
+          <li class="nav-item"><a class="nav-link btn" href="{{ route('page.expenses.create') }}">
+            <img src="{{ asset('img/spending.png') }}" alt="" style="width: 25px;">Quản lý</a></li>
+          <li class="nav-item"><a class="nav-link btn btn-primary" href="#" style="background-color: rgba(69, 165, 157, 0.9)">
+            <img src="{{ asset('img/report.png') }}" alt="" style="width: 25px;">Báo cáo</a></li>
         </ul>
+        <!-- Dropdown cố định dưới cùng sidebar -->
+        <div class="position-absolute bottom-0 start-0 end-0 mb-3 px-2">
+          <div class="dropdown w-100 text-center">
+            <a href="#" class="d-flex flex-column align-items-center text-dark text-decoration-none" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+              <img src="{{ asset('img/profile.png') }}" alt="Profile" class="rounded-circle mb-1" style="width: 40px; height: 40px;">
+              <span>{{ Auth::user()->name }}</span>
+            </a>
+            <ul class="dropdown-menu text-small shadow w-100" aria-labelledby="userDropdown">
+              <li>
+                <a class="dropdown-item" href="{{ route('profile.edit') }}">Profile</a>
+              </li>
+              <li>
+                <form method="POST" action="{{ route('logout') }}">
+                  @csrf
+                  <button type="submit" class="dropdown-item">Log Out</button>
+                </form>
+              </li>
+            </ul>
+          </div>
+        </div>
       </nav>
 
       <!-- Main Content -->
-      <main class="col-11 p-0">
-        <h1 style="border-bottom: 1px solid grey; margin-bottom: 0px;">
-          <div class="ms-4">Báo cáo chi tiêu</div>
-        </h1>
+      <main class="col-11 p-4">
+        <div class="d-flex justify-content-between align-items-center">
+          <h1>Báo cáo chi tiêu</h1>        
+        </div>
 
         <!-- Menu chọn kiểu xem -->
         <div class="btn-group m-2" role="group" aria-label="Menu Thêm chi tiêu">
-          <button type="button" class="btn btn-outline-primary">Tháng</button>
-          <button type="button" class="btn btn-primary">Năm</button>
-        </div>
-        <div style="border-top: 1px solid grey;"></div>
-
-        <!-- Bộ lọc năm -->
-        <div class="m-3">
-          <label for="chonNam" class="form-label">Chọn năm</label>
-          <input type="number" class="form-control w-auto" id="chonNam" min="2000" max="2100" />
+          <a href="{{ route('page.reports.monthly') }}" class="btn btn-outline-success text-decoration-none" style="background-color:rgb(255, 255, 255)">Tháng</a>
+          <button type="button" class="btn btn-success">Năm</button>
         </div>
 
         <!-- Nội dung chính chia 2 bên -->
-        <div class="row m-3">
+        <div class="row">
           <!-- Bên trái -->
-          <div class="col-md-6">
+          <div class="col-6">
+            <!-- Bộ lọc năm -->
+            <div class="mb-3">
+              <label for="chonNam" class="form-label">Chọn năm</label>
+              <input type="number" class="form-control w-auto" id="chonNam" min="2000" max="2100" value="{{ $year }}" />
+            </div>
             <div class="info-box mb-3">
               <h5>Tổng mục tiêu chi tiêu (năm)</h5>
-              <p id="tongMucTieu">120,000,000 VNĐ</p>
+              <p id="tongMucTieu">{{ number_format($yearlyTarget) }} VNĐ</p>
             </div>
             <div class="info-box mb-3">
               <h5>Tổng chi tiêu (năm)</h5>
-              <p id="tongChiTieu">90,000,000 VNĐ</p>
+              <p id="tongChiTieu">{{ number_format($yearlyTotal) }} VNĐ</p>
             </div>
             <div class="info-box">
               <h5>Số tiền còn lại</h5>
-              <p id="tienConLai">30,000,000 VNĐ</p>
+              <p id="tienConLai">{{ number_format($balance) }} VNĐ</p>
             </div>
           </div>
 
           <!-- Bên phải -->
           <div class="col-md-6">
-            <div class="row">
-              <!-- 12 tháng -->
-              <div class="col-6 mb-2" id="thangChiTieu">
-                <!-- Dữ liệu từng tháng sẽ được thêm ở đây bằng JS -->
-              </div>
+            <div class="card p-3 shadow-sm mb-3">
+                <table class="table">
+                  @foreach($monthlyExpenses as $index => $amount)
+                    <tr>
+                      <td>Tháng {{ $index + 1 }}</td>
+                      <td>{{ number_format($amount, 0, ',', '.') }} VNĐ</td>
+                    </tr>
+                  @endforeach
+                </table>
             </div>
           </div>
         </div>
 
-        <!-- Biểu đồ -->
-        <div class="m-3">
-          <h5 class="text-center mb-3">Biểu đồ chi tiêu theo tháng</h5>
-          <div class="text-center">
-            <canvas id="pieChart" width="400" height="400"></canvas>
-          </div>
-        </div>
+
       </main>
     </div>
   </div>
 
   <!-- JS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script>
     // Gán năm hiện tại làm mặc định
     document.addEventListener("DOMContentLoaded", function () {
       const yearInput = document.getElementById("chonNam");
-      const currentYear = new Date().getFullYear();
-      yearInput.value = currentYear;
-
-      // Dữ liệu giả chi tiêu theo tháng
-      const chiTieuThang = [
-        7000000, 8000000, 8500000, 7500000,
-        6500000, 6000000, 9000000, 8800000,
-        9200000, 8700000, 8600000, 9500000
-      ];
-      const monthNames = [
-        "Tháng 1", "Tháng 2", "Tháng 3", "Tháng 4",
-        "Tháng 5", "Tháng 6", "Tháng 7", "Tháng 8",
-        "Tháng 9", "Tháng 10", "Tháng 11", "Tháng 12"
-      ];
-
-      const thangChiTieuContainer = document.getElementById("thangChiTieu");
-      for (let i = 0; i < 12; i++) {
-        const div = document.createElement("div");
-        div.className = "info-box mb-2";
-        div.innerHTML = `<h6>${monthNames[i]}</h6><p>${chiTieuThang[i].toLocaleString()} VNĐ</p>`;
-        thangChiTieuContainer.appendChild(div);
-      }
-
-      // Biểu đồ tròn
-      const ctx = document.getElementById("pieChart").getContext("2d");
-      new Chart(ctx, {
-        type: "pie",
-        data: {
-          labels: monthNames,
-          datasets: [{
-            data: chiTieuThang,
-            backgroundColor: monthNames.map((_, i) =>
-              `hsl(${i * 30}, 70%, 60%)`
-            ),
-          }],
-        },
-      });
+        if (!yearInput.value) {
+          yearInput.value = new Date().getFullYear();
+        }
+    yearInput.addEventListener("change", function () {
+      const newYear = yearInput.value;
+      const url = new URL(window.location.href);
+      url.searchParams.set('year', newYear);
+      window.location.href = url.toString();
     });
+
+    });
+    const monthNames = ["Tháng 1", "Tháng 2", "Tháng 3", "Tháng 4", "Tháng 5", "Tháng 6",
+                    "Tháng 7", "Tháng 8", "Tháng 9", "Tháng 10", "Tháng 11", "Tháng 12"];
+    const chiTieuThang = @json($monthlyExpenses);
   </script>
 </body>
 </html>

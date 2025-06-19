@@ -118,6 +118,10 @@
       <main class="col-11 p-3">
         <h1 class="d-flex justify-content-between align-items-center" style="padding-bottom: 8px;">
           Quản lý chi tiêu
+          <div class="d-flex align-items-center gap-2" style="width: 300px;">
+            <input type="text" class="form-control" placeholder="Tìm kiếm...">
+            <button class="btn btn-primary"><img src="img/search.png" alt="" style="width: 30px;"></button>
+          </div>
         </h1>
     
         <!-- Thanh menu -->
@@ -145,61 +149,46 @@
         <div class="d-flex flex-row gap-4 my-0 flex-wrap">
           <div class="card my-4 flex-grow-1">
             <div class="d-flex justify-content-between align-items-center m-3">
-              <h4 class="mb-0">Danh sách chi tiêu tháng</h4>
-              <a href="{{ route('page.layouts.index') }}" class="btn btn-success">Mục tiêu</a>
+              <h4 class="mb-0">Danh sách mục tiêu chi tiêu tháng</h4>
+              <a href="{{ route('page.layouts.app') }}" class="btn btn-success">Chi tiêu</a>
             </div>
 
             <div class="d-flex flex-column gap-3" style="max-height: 350px; overflow-y:auto;">
-        @forelse ($monthlyExpenses as $expense)
-          @php
-            $categoryName = $expense->category->name ?? 'Khác';
-            $emoji = $categoryEmojis[$categoryName];
-          @endphp
-          <div class="card shadow-sm rounded-3 p-2 expense-item"
-            data-id="{{ $expense->id }}"
-            data-category-name="{{ $categoryName }}"
-            data-note="{{ $expense->note }}"
-            data-date="{{ \Carbon\Carbon::parse($expense->spend_date)->format('d/m/Y') }}"
-            data-amount="{{ number_format($expense->amount) }} đ">
-            <div class="d-flex justify-content-between align-items-start">
-              <!-- Emoji + Name + Note -->
-              <div class="d-flex align-items-start" style="flex: 1;">
-                <!-- Emoji -->
-                <div style="margin-right: 10px;">
-                  {!! $emoji !!}
+              @forelse ($targets as $target)
+                @php
+                  $categoryName = $target->category->name ?? 'Khác';
+                  $emoji = $categoryEmojis[$categoryName];
+                @endphp
+              <div class="card shadow-sm rounded-3 p-2 expense-item"
+                data-id="{{ $target->id }}"
+                data-category-name="{{ $categoryName }}"
+                data-amount="{{ number_format($target->target_amount) }} đ">
+                <div class="d-flex justify-content-between align-items-center">
+                  <div class="d-flex align-items-center">
+                    <div style="margin-right: 10px;">{!! $emoji !!}</div>
+                    <div style="font-size: 1.5rem; font-weight: 600;">{{ $categoryName }}</div>
+                  </div> 
+                    <div style="font-size: 1.25rem; font-weight: 700;">
+                      {{ number_format($target->target_amount) }} đ
+                    </div>
+                  </div>
                 </div>
-                <!-- Name + Note -->
-                <div>
-                  <div style="font-size: 1.5rem; font-weight: 600;">{{ $categoryName }}</div>
-                  <div class="text-muted" style="font-size: 1rem;">{{ $expense->note }}</div>
-                </div>
-              </div>
-              <!-- Ngày -->
-              <div style="width: 100px; text-align: center; font-weight: 500;">
-                {{ \Carbon\Carbon::parse($expense->spend_date)->format('d/m/Y') }}
-              </div>
-              <!-- Số tiền -->
-              <div style="width: 120px; text-align: right; font-weight: 700;">
-                {{ number_format($expense->amount) }} đ
-              </div>
-            </div>
 
-          </div>
-            @empty
-              <div class="text-center text-muted">Không có khoản chi nào trong tháng này.</div>
-        @endforelse
-      </div>
+                @empty
+                  <div class="text-center text-muted">Không có mục tiêu chi tiêu trong tháng này.</div>
+                @endforelse
+              </div>
           </div>
 
     <!-- Lịch tháng -->
     <div class="card shadow-sm my-4" style="min-width: 350px; flex-shrink: 0;">
       <div class="card-header d-flex justify-content-between align-items-center fw-bold" style="border: none;">
         <button id="prevMonthBtn" class="btn btn-sm ">
-          <img src="img/left-arrow.png" alt="" style="width: 25px;">
+          <img src="{{ asset('img/left-arrow.png') }}" alt="" style="width: 25px;">
         </button>
         <h4 id="calendarMonthYear" class="flex-grow-1 text-center m-1" >Lịch tháng</h4>
         <button id="nextMonthBtn" class="btn btn-sm ">
-          <img src="img/right-arrow.png" alt="" style="width: 25px;">
+          <img src="{{ asset('img/right-arrow.png') }}" alt="" style="width: 25px;">
         </button>
       </div>
       <div class="card-body p-0" >
@@ -218,46 +207,38 @@
       </div>
       
       </main>
-    </div>
   </div>
+</div>
 
-  <!-- Modal Chi tiết Chi tiêu -->
-<div class="modal fade" id="expenseDetailModal" tabindex="-1" aria-labelledby="expenseDetailModalLabel" aria-hidden="true">
+  <!-- Modal Chi tiết Mục tiêu -->
+<div class="modal fade" id="targetDetailModal" tabindex="-1" aria-labelledby="targetDetailModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content border-0 shadow-lg rounded-4">    
       <!-- Header -->
       <div class="modal-header bg-gradient rounded-top-4" style="background-color:rgb(80, 192, 183)">
-        <h5 class="modal-title" id="expenseDetailModalLabel">
-          <img src="{{ asset('img/list.png') }}" style="height: 25px;" class="me-2"> Chi tiết chi tiêu
+        <h5 class="modal-title" id="targetDetailModalLabel">
+          <img src="{{ asset('img/list.png') }}" style="height: 25px;" class="me-2"> Chi tiết mục tiêu chi tiêu
         </h5>
         <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
 
       <!-- Body -->
       <div class="modal-body px-4 py-3">
-        <div class="mb-3">
+        <div class="mb-6">
           <img src="{{ asset('img/folder.png') }}" style="height: 20px;" class="me-2">
           <strong>Danh mục:</strong> <span id="modalCategoryName" class="text-muted"></span>
         </div>
-        <div class="mb-3">
-          <img src="{{ asset('img/contract.png') }}" style="height: 20px;" class="me-2">
-          <strong>Ghi chú:</strong> <span id="modalNote" class="text-muted"></span>
-        </div>
-        <div class="mb-3">
-          <img src="{{ asset('img/check-mark.png') }}" style="height: 20px;" class="me-2">
-          <strong>Ngày:</strong> <span id="modalDate" class="text-muted"></span>
-        </div>
-        <div class="mb-3">
+        <div class="mb-6">
           <img src="{{ asset('img/money.png') }}" style="height: 20px;" class="me-2">
           <strong>Số tiền:</strong> <span id="modalAmount" class="text-danger fw-semibold"></span>
         </div>
       </div>
       <!-- Footer -->
       <div class="modal-footer justify-content-between px-4 pb-4">
-        <button id="editExpenseBtn" type="button" class="btn btn-outline-primary rounded-pill px-4">
+        <button id="editTargetBtn" type="button" class="btn btn-outline-primary rounded-pill px-4" data-id="">
           <img src="{{ asset('img/edit.png') }}" style="height: 20px;" class="me-1"> Sửa
         </button>
-        <button id="deleteExpenseBtn" type="button" class="btn btn-outline-danger rounded-pill px-4">
+        <button id="deleteTargetBtn" type="button" class="btn btn-outline-danger rounded-pill px-4">
           <img src="{{ asset('img/bin.png') }}" style="height: 20px;" class="me-1"> Xóa
         </button>
       </div>
@@ -373,63 +354,63 @@
     updateCalendarTitle();
     renderCalendar(currentMonth, currentYear);
   })();
-  let selectedExpenseId = null;
+  let selectedTargetId = null;
   document.querySelectorAll('.expense-item').forEach(item => {
     item.addEventListener('click', () => {
-      selectedExpenseId = item.dataset.id;
+      selectedTargetId = item.dataset.id;
 
       document.getElementById('modalCategoryName').textContent = item.dataset.categoryName;
-      document.getElementById('modalNote').textContent = item.dataset.note;
-      document.getElementById('modalDate').textContent = item.dataset.date;
       document.getElementById('modalAmount').textContent = item.dataset.amount;
+      document.getElementById('editTargetBtn').dataset.id = selectedTargetId;
+      document.getElementById('deleteTargetBtn').dataset.id = selectedTargetId;
 
-      document.getElementById('editExpenseBtn').dataset.id = selectedExpenseId;
-
-      const modal = new bootstrap.Modal(document.getElementById('expenseDetailModal'));
+      const modal = new bootstrap.Modal(document.getElementById('targetDetailModal'));
       modal.show();
     });
   });
 
-  // Xử lý nút "Xóa"
-  document.getElementById('deleteExpenseBtn').addEventListener('click', function () {
-    if (confirm("Bạn có chắc chắn muốn xóa khoản chi tiêu này?")) {
-      fetch(`/expenses/${selectedExpenseId}`, {
-        method: 'DELETE',
-        headers: {
-  'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
-  'Content-Type': 'application/json'
-} 
-,
-      })
-      .then(response => {
-        if (response.ok) {
-          // Ẩn modal
-          const modalEl = document.getElementById('expenseDetailModal');
-          const modalInstance = bootstrap.Modal.getInstance(modalEl);
-          modalInstance.hide();
+// Xử lý nút "Xóa"
+document.getElementById('deleteTargetBtn').addEventListener('click', function () {
+  if (confirm("Bạn có chắc chắn muốn xóa mục tiêu này?")) {
+    fetch(`/budgets/${selectedTargetId}`, {
+      method: 'DELETE',
+      headers: {
+        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+        'Content-Type': 'application/json'
+      }
+    })
+    .then(response => {
+      if (response.ok) {
+        // Ẩn modal
+        const modalEl = document.getElementById('targetDetailModal');
+        const modalInstance = bootstrap.Modal.getInstance(modalEl);
+        modalInstance.hide();
 
-          // Xóa thẻ hiển thị chi tiêu khỏi DOM
-          document.querySelector(`.expense-item[data-id="${selectedExpenseId}"]`).remove();
+        // Xóa thẻ hiển thị mục tiêu khỏi DOM
+        document.querySelector(`.expense-item[data-id="${selectedTargetId}"]`).remove();
 
-          // Cập nhật lại tổng số tiền nếu cần (tùy bạn muốn xử lý thêm)
-        } else {
-          alert("Xóa thất bại. Vui lòng thử lại.");
-        }
-      })
-      .catch(error => {
-        console.error(error);
-        alert("Đã xảy ra lỗi.");
-      });
-    }
-  });
+        // (Tuỳ chọn) Cập nhật tổng số tiền mục tiêu, số dư, v.v.
+      } else {
+        alert("Xóa thất bại. Vui lòng thử lại.");
+      }
+    })
+    .catch(error => {
+      console.error(error);
+      alert("Đã xảy ra lỗi.");
+    });
+  }
+});
 
-  // Khi click nút "Sửa"
-  document.getElementById('editExpenseBtn')?.addEventListener('click', function () {
-    const id = this.dataset.id;
-    if (!id) return;
-    // Điều hướng đến form tạo chi tiêu, kèm theo ID để sửa
-    window.location.href = `/expenses/create?edit_id=${id}`;
-  });
+
+// Khi click nút "Sửa"
+document.getElementById('editTargetBtn')?.addEventListener('click', function () {
+  const id = this.dataset.id;
+  if (!id) return;
+
+  // Điều hướng đến form tạo mục tiêu, kèm theo ID để sửa
+  window.location.href = `/budgets/${id}/edit`;
+});
+
 
 </script>
 

@@ -13,10 +13,11 @@ public function up()
 {
     Schema::create('expenses', function (Blueprint $table) {
         $table->id();
+        $table->foreignId('user_id')->constrained()->onDelete('cascade'); // THÊM user_id đúng chuẩn
         $table->foreignId('category_id')->constrained()->onDelete('cascade');
-        $table->date('spend_date');      // Ngày chi tiêu
-        $table->bigInteger('amount');    // Số tiền chi tiêu (VNĐ)
-        $table->string('note')->nullable(); // Ghi chú
+        $table->date('spend_date');
+        $table->bigInteger('amount');
+        $table->string('note')->nullable();
         $table->timestamps();
     });
 }
@@ -26,6 +27,6 @@ public function up()
      */
     public function down(): void
     {
-        Schema::dropIfExists('spendings');
+        Schema::dropIfExists('expenses');
     }
 };

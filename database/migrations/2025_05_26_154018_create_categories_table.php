@@ -15,6 +15,8 @@ public function up()
         $table->id();
         $table->string('name')->unique();  // Tên danh mục, ví dụ: "Ăn uống"
         $table->timestamps();
+        $table->foreignId('user_id')->constrained()->onDelete('cascade');
+
     });
 }
 
