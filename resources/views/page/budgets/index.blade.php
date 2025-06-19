@@ -38,22 +38,22 @@
   background-color: #cfe2ff;
   transform: translateX(5px);
   transition: 0.3s ease;
-}
-.category-button{
-  background-color: white;
-}
-.category-button:hover {
-    background-color: rgba(69, 165, 157, 0.9) !important; /* màu cam */
-    border-color: rgba(69, 165, 157, 0.9) !important;
-    color: white !important;
-}
+  }
+  .category-button{
+    background-color: white;
+  }
+  .category-button:hover {
+      background-color: rgba(69, 165, 157, 0.9) !important; /* màu cam */
+      border-color: rgba(69, 165, 157, 0.9) !important;
+      color: white !important;
+  }
 
   </style>
 </head>
 <body>
   <div class="container-fluid">
     <div class="row">
-            <nav class="col-1 vh-100 p-3" style="position: sticky; top:0;background-color: rgb(80, 192, 183);">
+      <nav class="col-1 vh-100 p-3" style="position: sticky; top:0;background-color: rgb(80, 192, 183);">
         <h4><img src="{{ asset('img/budget.png') }}" alt="Icon Budget" style="width: 75px;"></h4>
         <ul class="nav flex-column">
           <li class="nav-item"><a class="nav-link btn " href="{{ route('page.layouts.app') }}">
@@ -64,25 +64,25 @@
             <img src="{{ asset('img/report.png') }}" alt="" style="width: 25px;">Báo cáo</a></li>
         </ul>
         <!-- Dropdown cố định dưới cùng sidebar -->
-<div class="position-absolute bottom-0 start-0 end-0 mb-3 px-2">
-  <div class="dropdown w-100 text-center">
-    <a href="#" class="d-flex flex-column align-items-center text-dark text-decoration-none" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-      <img src="{{ asset('img/profile.png') }}" alt="Profile" class="rounded-circle mb-1" style="width: 40px; height: 40px;">
-      <span>{{ Auth::user()->name }}</span>
-    </a>
-    <ul class="dropdown-menu text-small shadow w-100" aria-labelledby="userDropdown">
-      <li>
-        <a class="dropdown-item" href="{{ route('profile.edit') }}">Profile</a>
-      </li>
-      <li>
-        <form method="POST" action="{{ route('logout') }}">
-          @csrf
-          <button type="submit" class="dropdown-item">Log Out</button>
-        </form>
-      </li>
-    </ul>
-  </div>
-</div>
+        <div class="position-absolute bottom-0 start-0 end-0 mb-3 px-2">
+          <div class="dropdown w-100 text-center">
+            <a href="#" class="d-flex flex-column align-items-center text-dark text-decoration-none" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+              <img src="{{ asset('img/profile.png') }}" alt="Profile" class="rounded-circle mb-1" style="width: 40px; height: 40px;">
+              <span>{{ Auth::user()->name }}</span>
+            </a>
+            <ul class="dropdown-menu text-small shadow w-100" aria-labelledby="userDropdown">
+              <li>
+                <a class="dropdown-item" href="{{ route('profile.edit') }}">Profile</a>
+              </li>
+              <li>
+                <form method="POST" action="{{ route('logout') }}">
+                  @csrf
+                  <button type="submit" class="dropdown-item">Log Out</button>
+                </form>
+              </li>
+            </ul>
+          </div>
+        </div>
       </nav>
 
       <main class="col-11 p-4">
