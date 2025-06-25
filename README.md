@@ -789,8 +789,10 @@ public function destroy($id)
 - 📅 Báo cáo chi tiêu năm
 ![bcn](https://github.com/user-attachments/assets/81aeaa76-9241-4fe9-985d-70c1455faa39)
 ---
+## Link
 ### 📌 Github: https://github.com/camlee05/WNC
 ### 🌐 GitHub Pages: https://camlee05.github.io/WNC/
+### Public website: https://financialmanagement-nwwd.onrender.com
 
 
 
