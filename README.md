@@ -791,8 +791,8 @@ public function destroy($id)
 ---
 ## Link
 ### 📌 Github: https://github.com/camlee05/WNC
-### 🌐 GitHub Pages: https://camlee05.github.io/WNC/
-### Public website: https://financialmanagement-nwwd.onrender.com
+### 📃 GitHub Pages: https://camlee05.github.io/WNC/
+### 🌐 Public website: https://financialmanagement-nwwd.onrender.com
 
 
 
