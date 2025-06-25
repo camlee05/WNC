@@ -1,34 +1,28 @@
-# Sử dụng image PHP chính thức
 FROM php:8.2-fpm
 
-# Cài các dependency
+# Cài các extension PHP
 RUN apt-get update && apt-get install -y \
-    build-essential \
-    libpng-dev \
-    libjpeg-dev \
-    libonig-dev \
-    libxml2-dev \
-    zip \
-    unzip \
-    curl \
-    git \
-    libzip-dev \
-    && docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd zip
+    zip unzip curl git libzip-dev libpng-dev libonig-dev libxml2-dev \
+    libssl-dev ca-certificates \
+    && docker-php-ext-install pdo_mysql mbstring zip bcmath
 
-# Cài Composer
+# Cài composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
-# Copy mã nguồn
+# Set working directory
 WORKDIR /var/www
+
+# Copy toàn bộ source
 COPY . .
 
-# Cài dependency Laravel
+# Cài dependencies Laravel
 RUN composer install --no-dev --optimize-autoloader
 
-# Gán quyền cho thư mục cache/log
-RUN chown -R www-data:www-data /var/www/storage /var/www/bootstrap/cache
+# Quyền cho storage & cache
+RUN chown -R www-data:www-data storage bootstrap/cache
 
-EXPOSE 9000
+# Mở port cho Render scan
+EXPOSE 10000
 
+# Lệnh chạy server Laravel
 CMD ["php", "artisan", "serve", "--host=0.0.0.0", "--port=10000"]
-
